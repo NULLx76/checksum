@@ -14,10 +14,13 @@ namespace checksum
     {
         public frmMain()
         {
+            string[] args = Environment.GetCommandLineArgs();
+
+
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
             //Test
             //test2

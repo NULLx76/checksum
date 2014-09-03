@@ -12,7 +12,7 @@ namespace checksum
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static void Main() //No need for argument support here
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
