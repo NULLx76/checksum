@@ -57,6 +57,84 @@ namespace checksum
 
         #region "Functions"
 
+        public string CalculateMD5Hash(string file)
+        {
+            MD5 md5 = MD5.Create();
+
+            using (var stream = System.IO.File.OpenRead(file))
+            {
+                byte[] b = md5.ComputeHash(stream);
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
+            }
+        }
+
+        public string CalculateSHA1Hash(string file)
+        {
+            SHA1 sha1 = SHA1.Create();
+
+            using (var stream = System.IO.File.OpenRead(file))
+            {
+                byte[] b = sha1.ComputeHash(stream);
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
+            }
+        }
+
+        public string CalculateSHA256Hash(string file)
+        {
+            SHA256 sha256 = SHA256.Create();
+
+            using (var stream = System.IO.File.OpenRead(file))
+            {
+                byte[] b = sha256.ComputeHash(stream);
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
+            }
+        }
+
+        public string CalculateSHA512Hash(string file)
+        {
+            SHA512 sha512 = SHA512.Create();
+
+            using (var stream = System.IO.File.OpenRead(file))
+            {
+                byte[] b = sha512.ComputeHash(stream);
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
+            }
+        }
+
+        public string CalculateHash(string file, string method)
+        {
+            if (!System.IO.File.Exists(file))
+                return "";
+
+            string output = "";
+
+            switch (method)
+            {
+                case "SHA1":
+                    output = CalculateSHA1Hash(file);
+                    break;
+                case "SHA256":
+                    output = CalculateSHA256Hash(file);
+                    break;
+                case "SHA512":
+                    output = CalculateSHA512Hash(file);
+                    break;
+                default:
+                    output = CalculateMD5Hash(file);
+                    break;
+            }
+            lastFileLocation = System.IO.Path.GetFullPath(file);
+            return output;
+        }
+
+        #endregion
+
+        #region "Old Functions"
+        /*
         public string CalculateMD5Hash(byte[] input)
         {
             //calculate MD5 hash from input
@@ -116,34 +194,7 @@ namespace checksum
             }
             return sb.ToString();
         }
-
-        public string CalculateHash(string file, string method)
-        {
-            if (!System.IO.File.Exists(file))
-                return "";
-
-            byte[] input = System.IO.File.ReadAllBytes(file);
-            string output = "";
-
-            switch (method)
-            {
-                case "SHA1":
-                    output = CalculateSHA1Hash(input);
-                    break;
-                case "SHA256":
-                    output = CalculateSHA256Hash(input);
-                    break;
-                case "SHA512":
-                    output = CalculateSHA512Hash(input);
-                    break;
-                default:
-                    output = CalculateMD5Hash(input);
-                    break;
-            }
-            lastFileLocation = System.IO.Path.GetFullPath(file);
-            return output;
-        }
-
+        */
         #endregion
 
         #region "Events"
