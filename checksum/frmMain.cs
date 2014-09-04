@@ -27,6 +27,10 @@ namespace checksum
             InitializeComponent();
             cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" } );
             cmbMethod.SelectedIndex = 0;
+            LinkLabel.Link link = new LinkLabel.Link();
+            link.LinkData = "https://github.com/victorheld/checksum#checksum";
+            alblGitHub.Links.Add(link);
+
             
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
@@ -113,5 +117,11 @@ namespace checksum
         }
 
         #endregion
+
+        private void alblGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.ProcessStartInfo sInfo = new System.Diagnostics.ProcessStartInfo(e.Link.LinkData as string);
+            System.Diagnostics.Process.Start(sInfo);
+        }
     }
 }
