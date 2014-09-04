@@ -17,7 +17,8 @@ Here is a list of the currently supported hash types:
 * Icons provided by [Pixel Mixer](pixel-mixer.com) and [Micheal Rowe](http://stylicons.com/) under the Creative Commons License
 
 ## Known Errors ##
-* Will freeze on file processing (still works, just takes time)
+* Will freeze on file processing (still works, just takes time)\
+* Context menu not yet working(See To-Do list)
 
 ## To-Do List ##
 * Add threading for file processing to prevent application freezing
