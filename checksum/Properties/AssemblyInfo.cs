@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("checksum")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A program to check the hash of a file nicely integrated in the contect menu")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("checksum")]
