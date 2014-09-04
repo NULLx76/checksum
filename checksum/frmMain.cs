@@ -51,7 +51,7 @@ namespace checksum
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //Test
+            //test
             //test2
         }
 
