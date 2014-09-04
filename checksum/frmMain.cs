@@ -123,6 +123,9 @@ namespace checksum
 
         public string CalculateHash(string file, string method)
         {
+            if (!System.IO.File.Exists(file))
+                return "";
+
             string input = System.Text.Encoding.Default.GetString(System.IO.File.ReadAllBytes(file));
             string output = "";
 
