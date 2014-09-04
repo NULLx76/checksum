@@ -24,6 +24,7 @@ Here is a list of the currently supported hash types:
 * Add threading for file processing to prevent application freezing
 * Add Installer
 * Implement registery entries for context menu.
+* Add Drag&Drop support
 
 ## Recent changes ##
 * Reworked hash functions -> Added support for large file (>2G) Yay!
