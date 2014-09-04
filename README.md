@@ -14,3 +14,4 @@ Here is a list of the currently supported hash types:
 ## Authors ##
 * [Victorheld](https://github.com/victorheld/)
 * [Backshifted](https://github.com/backshifted/)
+* Icons provided by Pixel Mixer
