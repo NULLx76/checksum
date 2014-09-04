@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace checksum
@@ -22,21 +15,20 @@ namespace checksum
          *  SHA512
         */
 
-        int lastcmbIndex = 0;
-        string lastFileLocation = "C:\\";
-        string lastFile1 = "";
-        string lastFile2 = "";
-        
+        private int lastcmbIndex = 0;
+        private string lastFileLocation = "C:\\";
+        private string lastFile1 = "";
+        private string lastFile2 = "";
+
         public frmMain()
         {
             InitializeComponent();
-            cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" } );
+            cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" });
             cmbMethod.SelectedIndex = 0;
             LinkLabel.Link link = new LinkLabel.Link();
             link.LinkData = "https://github.com/victorheld/checksum#checksum";
             alblGitHub.Links.Add(link);
 
-            
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
                 return;
@@ -46,7 +38,6 @@ namespace checksum
             {
                 tbChecksum1.Text = CalculateHash(args[1], args[0]);
             }
-
         }
 
         private void frmMain_Load(object sender, EventArgs e)
@@ -117,12 +108,15 @@ namespace checksum
                 case "SHA1":
                     output = CalculateSHA1Hash(file);
                     break;
+
                 case "SHA256":
                     output = CalculateSHA256Hash(file);
                     break;
+
                 case "SHA512":
                     output = CalculateSHA512Hash(file);
                     break;
+
                 default:
                     output = CalculateMD5Hash(file);
                     break;
@@ -131,9 +125,10 @@ namespace checksum
             return output;
         }
 
-        #endregion
+        #endregion "Functions"
 
         #region "Old Functions"
+
         /*
         public string CalculateMD5Hash(byte[] input)
         {
@@ -195,9 +190,11 @@ namespace checksum
             return sb.ToString();
         }
         */
-        #endregion
+
+        #endregion "Old Functions"
 
         #region "Events"
+
         private void alblGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.ProcessStartInfo sInfo = new System.Diagnostics.ProcessStartInfo(e.Link.LinkData as string);
@@ -260,6 +257,7 @@ namespace checksum
                 lastcmbIndex = cmbMethod.SelectedIndex;
             }
         }
-        #endregion
+
+        #endregion "Events"
     }
 }
