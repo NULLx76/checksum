@@ -57,12 +57,11 @@ namespace checksum
 
         #region "Functions"
 
-        public string CalculateMD5Hash(string input)
+        public string CalculateMD5Hash(byte[] input)
         {
             //calculate MD5 hash from input
             MD5 md5 = MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
+            byte[] hash = md5.ComputeHash(input);
 
             //convert byte array to hex string
             StringBuilder sb = new StringBuilder();
@@ -73,12 +72,11 @@ namespace checksum
             return sb.ToString();
         }
 
-        public string CalculateSHA1Hash(string input)
+        public string CalculateSHA1Hash(byte[] input)
         {
             //calculate SHA1 hash from input
             SHA1 sha1 = SHA1.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = sha1.ComputeHash(inputBytes);
+            byte[] hash = sha1.ComputeHash(input);
 
             //convert byte array to hex string
             StringBuilder sb = new StringBuilder();
@@ -89,12 +87,11 @@ namespace checksum
             return sb.ToString();
         }
 
-        public string CalculateSHA256Hash(string input)
+        public string CalculateSHA256Hash(byte[] input)
         {
             //calculate SHA256 hash from input
             SHA256 sha256 = SHA256.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = sha256.ComputeHash(inputBytes);
+            byte[] hash = sha256.ComputeHash(input);
 
             //convert byte array to hex string
             StringBuilder sb = new StringBuilder();
@@ -105,12 +102,11 @@ namespace checksum
             return sb.ToString();
         }
 
-        public string CalculateSHA512Hash(string input)
+        public string CalculateSHA512Hash(byte[] input)
         {
             //calculate SHA512 hash from input
             SHA512 sha512 = SHA512.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = sha512.ComputeHash(inputBytes);
+            byte[] hash = sha512.ComputeHash(input);
 
             //convert byte array to hex string
             StringBuilder sb = new StringBuilder();
@@ -126,7 +122,7 @@ namespace checksum
             if (!System.IO.File.Exists(file))
                 return "";
 
-            string input = System.Text.Encoding.Default.GetString(System.IO.File.ReadAllBytes(file));
+            byte[] input = System.IO.File.ReadAllBytes(file);
             string output = "";
 
             switch (method)
