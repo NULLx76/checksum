@@ -10,3 +10,7 @@ Here is a list of the currently supported hash types:
 * SHA1
 * SHA256
 * SHA512
+
+## Authors ##
+* [Victorheld](https://github.com/victorheld/)
+* [Backshifted](https://github.com/backshifted/)
