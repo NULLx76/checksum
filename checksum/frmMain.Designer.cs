@@ -50,6 +50,7 @@
             this.cmbMethod.Name = "cmbMethod";
             this.cmbMethod.Size = new System.Drawing.Size(223, 21);
             this.cmbMethod.TabIndex = 0;
+            this.cmbMethod.SelectedIndexChanged += new System.EventHandler(this.cmbMethod_SelectedIndexChanged);
             // 
             // lblMethod
             // 
@@ -84,6 +85,7 @@
             this.tbChecksum1.Name = "tbChecksum1";
             this.tbChecksum1.Size = new System.Drawing.Size(200, 20);
             this.tbChecksum1.TabIndex = 4;
+            this.tbChecksum1.TextChanged += new System.EventHandler(this.tbChecksum1_TextChanged);
             // 
             // tbChecksum2
             // 
@@ -91,6 +93,7 @@
             this.tbChecksum2.Name = "tbChecksum2";
             this.tbChecksum2.Size = new System.Drawing.Size(200, 20);
             this.tbChecksum2.TabIndex = 5;
+            this.tbChecksum2.TextChanged += new System.EventHandler(this.tbChecksum2_TextChanged);
             // 
             // pbCheck
             // 
@@ -108,6 +111,7 @@
             this.btnFile1.TabIndex = 8;
             this.btnFile1.Text = "From File...";
             this.btnFile1.UseVisualStyleBackColor = true;
+            this.btnFile1.Click += new System.EventHandler(this.btnFile1_Click);
             // 
             // btnFile2
             // 
@@ -117,6 +121,7 @@
             this.btnFile2.TabIndex = 9;
             this.btnFile2.Text = "From File...";
             this.btnFile2.UseVisualStyleBackColor = true;
+            this.btnFile2.Click += new System.EventHandler(this.btnFile2_Click);
             // 
             // alblGitHub
             // 
@@ -151,7 +156,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "frmMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Checksum";
             this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCheck)).EndInit();

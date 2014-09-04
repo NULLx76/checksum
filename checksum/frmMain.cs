@@ -21,6 +21,11 @@ namespace checksum
          *  SHA256
          *  SHA512
         */
+
+        int lastcmbIndex = 0;
+        string lastFileLocation = "C:\\";
+        string lastFile1 = "";
+        string lastFile2 = "";
         
         public frmMain()
         {
@@ -35,11 +40,11 @@ namespace checksum
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
                 return;
-            if (cmbMethod.Items.Contains(args[0]))
+            if (cmbMethod.Items.Contains(args[0].ToUpper()))
                 cmbMethod.SelectedIndex = cmbMethod.Items.IndexOf(args[0]);
             if (System.IO.File.Exists(args[1]))
             {
-
+                tbChecksum1.Text = CalculateHash(args[1], args[0]);
             }
 
         }
@@ -116,12 +121,95 @@ namespace checksum
             return sb.ToString();
         }
 
+        public string CalculateHash(string file, string method)
+        {
+            string input = System.Text.Encoding.Default.GetString(System.IO.File.ReadAllBytes(file));
+            string output = "";
+
+            switch (method)
+            {
+                case "SHA1":
+                    output = CalculateSHA1Hash(input);
+                    break;
+                case "SHA256":
+                    output = CalculateSHA256Hash(input);
+                    break;
+                case "SHA512":
+                    output = CalculateSHA512Hash(input);
+                    break;
+                default:
+                    output = CalculateMD5Hash(input);
+                    break;
+            }
+            lastFileLocation = System.IO.Path.GetFullPath(file);
+            return output;
+        }
+
         #endregion
 
+        #region "Events"
         private void alblGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.ProcessStartInfo sInfo = new System.Diagnostics.ProcessStartInfo(e.Link.LinkData as string);
             System.Diagnostics.Process.Start(sInfo);
         }
+
+        private void tbChecksum1_TextChanged(object sender, EventArgs e)
+        {
+            if (tbChecksum1.Text == tbChecksum2.Text)
+                pbCheck.Image = checksum.Properties.Resources.Check;
+            else
+                pbCheck.Image = checksum.Properties.Resources.Error;
+        }
+
+        private void tbChecksum2_TextChanged(object sender, EventArgs e)
+        {
+            if (tbChecksum1.Text == tbChecksum2.Text)
+                pbCheck.Image = checksum.Properties.Resources.Check;
+            else
+                pbCheck.Image = checksum.Properties.Resources.Error;
+        }
+
+        private void btnFile1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Select File";
+            ofd.Filter = "All Files|*.*";
+            ofd.CheckFileExists = true;
+            ofd.Multiselect = false;
+            ofd.InitialDirectory = lastFileLocation;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                lastFile1 = ofd.FileName;
+                tbChecksum1.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
+            }
+        }
+
+        private void btnFile2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Select File";
+            ofd.Filter = "All Files|*.*";
+            ofd.CheckFileExists = true;
+            ofd.Multiselect = false;
+            ofd.InitialDirectory = lastFileLocation;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                lastFile2 = ofd.FileName;
+                tbChecksum2.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
+            }
+            ofd.Dispose();
+        }
+
+        private void cmbMethod_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbMethod.SelectedIndex != lastcmbIndex)
+            {
+                tbChecksum1.Text = CalculateHash(lastFile1, cmbMethod.SelectedItem.ToString());
+                tbChecksum2.Text = CalculateHash(lastFile2, cmbMethod.SelectedItem.ToString());
+                lastcmbIndex = cmbMethod.SelectedIndex;
+            }
+        }
+        #endregion
     }
 }
