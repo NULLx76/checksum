@@ -11,10 +11,9 @@ Here is a list of the currently supported hash types:
 * SHA256
 * SHA512
 
-## Authors ##
-* [Victorheld](https://github.com/victorheld/)
-* [Backshifted](https://github.com/backshifted/)
-* Icons provided by [Pixel Mixer](http://pixel-mixer.com) and [Micheal Rowe](http://stylicons.com/) under the Creative Commons License
+## Recent changes ##
+* Reworked hash functions -> Added support for large file (>2G) Yay!
+* Automatic recalculation of hashes when switching methods
 
 ## Known Errors ##
 * Will freeze on file processing (still works, just takes time)\
@@ -26,7 +25,7 @@ Here is a list of the currently supported hash types:
 * Implement registery entries for context menu.
 * Add Drag&Drop support
 
-## Recent changes ##
-* Reworked hash functions -> Added support for large file (>2G) Yay!
-* Automatic recalculation of hashes when switching methods
-* 
+## Authors ##
+* [Victorheld](https://github.com/victorheld/)
+* [Backshifted](https://github.com/backshifted/)
+* Icons provided by [Pixel Mixer](http://pixel-mixer.com) and [Micheal Rowe](http://stylicons.com/) under the Creative Commons License
