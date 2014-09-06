@@ -25,10 +25,15 @@ namespace checksum
         private Thread thd;
 
         private delegate void delEnableForm();
+
         private delEnableForm EnableFormdel;
+
         private delegate void delSetText1();
+
         private delSetText1 SetText1del;
+
         private delegate void delSetText2();
+
         private delSetText2 SetText2del;
 
         public frmMain()
@@ -77,6 +82,7 @@ namespace checksum
                 return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
+
         public string CalculateSHA1Hash(string file)
         {
             SHA1 sha1 = SHA1.Create();
@@ -88,6 +94,7 @@ namespace checksum
                 return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
+
         public string CalculateSHA256Hash(string file)
         {
             SHA256 sha256 = SHA256.Create();
@@ -99,6 +106,7 @@ namespace checksum
                 return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
+
         public string CalculateSHA512Hash(string file)
         {
             SHA512 sha512 = SHA512.Create();
@@ -114,9 +122,10 @@ namespace checksum
         public void StartHashing(string file, string method, int tb)
         {
             this.Text = "Checksum - Calculating Hash...";
-            foreach (Control c in this.Controls) {
-                if(c.GetType() != typeof(LinkLabel))
-                c.Enabled = false;
+            foreach (Control c in this.Controls)
+            {
+                if (c.GetType() != typeof(LinkLabel))
+                    c.Enabled = false;
             }
 
             thd = new Thread(() => CalculateHash(file, method, tb));
@@ -157,7 +166,8 @@ namespace checksum
 
         public void EnableForm()
         {
-            foreach(Control c in this.Controls) {
+            foreach (Control c in this.Controls)
+            {
                 if (c.InvokeRequired)
                     c.Invoke(EnableFormdel);
                 else
@@ -323,9 +333,9 @@ namespace checksum
         {
             if (cmbMethod.SelectedIndex != lastcmbIndex)
             {
-                if(lastFile1 != "")
+                if (lastFile1 != "")
                     StartHashing(lastFile1, cmbMethod.SelectedItem.ToString(), 1);
-                if(lastFile2 != "")
+                if (lastFile2 != "")
                     StartHashing(lastFile2, cmbMethod.SelectedItem.ToString(), 2);
 
                 lastcmbIndex = cmbMethod.SelectedIndex;
