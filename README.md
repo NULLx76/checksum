@@ -12,15 +12,14 @@ Here is a list of the currently supported hash types:
 * SHA512
 
 ## Recent changes ##
+* Added threading for file processing to prevent application freezing
 * Reworked hash functions -> Added support for large file (>2G) Yay!
 * Automatic recalculation of hashes when switching methods
 
 ## Known Errors ##
-* Will freeze on file processing (still works, just takes time)\
 * Context menu not yet working(See To-Do list)
 
 ## To-Do List ##
-* Add threading for file processing to prevent application freezing
 * Add Installer
 * Implement registery entries for context menu.
 * Add Drag&Drop support
