@@ -3,6 +3,10 @@ checksum
 
 A program to check the hash of a file nicely integrated in the context menu
 
+## Releases ##
+* [Update 1.5](https://github.com/victorheld/checksum/releases/tag/v1.5.0)
+* [Update 1.0](https://github.com/victorheld/checksum/releases/tag/v1.0.0)
+
 ## Supported Hashes ##
 Here is a list of the currently supported hash types:
 
