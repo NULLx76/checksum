@@ -7,15 +7,6 @@ namespace checksum
 {
     public partial class frmMain : Form
     {
-        /*Notes
-         * Hash methods to add:
-         *  MD5
-         *  SHA1
-         *  SHA3 still needs to be implemented, maybe later on (:
-         *  SHA256
-         *  SHA512
-        */
-
         private int lastcmbIndex = 0;
         private string lastFileLocation = "C:\\";
         private string lastFile1 = "";
@@ -48,6 +39,11 @@ namespace checksum
             EnableFormdel = new delEnableForm(EnableForm);
             SetText1del = new delSetText1(SetText1);
             SetText2del = new delSetText2(SetText2);
+
+            //Drag&Drop
+            this.AllowDrop = true;
+            this.DragEnter += new DragEventHandler(frmMain_DragEnter);
+            this.DragDrop += new DragEventHandler(frmMain_DragDrop);
 
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
@@ -282,20 +278,26 @@ namespace checksum
 
         private void tbChecksum1_TextChanged(object sender, EventArgs e)
         {
-            if (tbChecksum1.Text == tbChecksum2.Text)
-                pbCheck.Image = checksum.Properties.Resources.Check;
-            else
+            if (tbChecksum1.Text == tbChecksum2.Text) {
+                if (tbChecksum1.Text != "")
+                    pbCheck.Image = checksum.Properties.Resources.Check;
+                else
+                    pbCheck.Image = null;
+            } else
                 pbCheck.Image = checksum.Properties.Resources.Error;
         }
 
         private void tbChecksum2_TextChanged(object sender, EventArgs e)
         {
-            if (tbChecksum1.Text == tbChecksum2.Text)
-                pbCheck.Image = checksum.Properties.Resources.Check;
-            else
+            if (tbChecksum1.Text == tbChecksum2.Text) {
+                if (tbChecksum1.Text != "")
+                    pbCheck.Image = checksum.Properties.Resources.Check;
+                else
+                    pbCheck.Image = null;
+            } else
                 pbCheck.Image = checksum.Properties.Resources.Error;
         }
-
+    
         private void btnFile1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -344,8 +346,19 @@ namespace checksum
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (thd != null)
+            if(thd != null)
                 thd.Abort();
+        }
+
+        private void frmMain_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+
+        private void frmMain_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            StartHashing(files[0], cmbMethod.SelectedItem.ToString(), 1);
         }
 
         #endregion "Events"
