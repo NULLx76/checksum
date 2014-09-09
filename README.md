@@ -4,6 +4,7 @@ checksum
 A program to check the hash of a file nicely integrated in the context menu
 
 ## Releases ##
+* [Update 1.6](https://github.com/victorheld/checksum/releases/tag/v1.6)
 * [Update 1.5.1](https://github.com/victorheld/checksum/releases/tag/v1.5.1)
 * [Update 1.5.0](https://github.com/victorheld/checksum/releases/tag/v1.5.0)
 * [Update 1.0.0](https://github.com/victorheld/checksum/releases/tag/v1.0.0)
@@ -17,6 +18,8 @@ Here is a list of the currently supported hash types:
 * SHA512
 
 ## Recent changes ##
+* Added Drag&Drop Support
+* Fixed NullPointerException on close
 * Added threading for file processing to prevent application freezing
 * Reworked hash functions -> Added support for large file (>2G) Yay!
 * Automatic recalculation of hashes when switching methods
@@ -27,7 +30,6 @@ Here is a list of the currently supported hash types:
 ## To-Do List ##
 * Add Installer
 * Implement registery entries for context menu.
-* Add Drag&Drop support
 
 ## Authors ##
 * [Victorheld](https://github.com/victorheld/)
