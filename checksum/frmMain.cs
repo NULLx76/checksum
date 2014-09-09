@@ -49,7 +49,6 @@ namespace checksum
             SetText1del = new delSetText1(SetText1);
             SetText2del = new delSetText2(SetText2);
 
-
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
                 return;
@@ -345,7 +344,7 @@ namespace checksum
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(thd != null)
+            if (thd != null)
                 thd.Abort();
         }
 
