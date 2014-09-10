@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
@@ -29,6 +30,13 @@ namespace checksum
 
         public frmMain()
         {
+            string regkey = (string)Registry.GetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum\\command", null, null);
+            string regIcon = (string)Registry.GetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum", "Icon", null);
+            if(regkey == null || !regkey.Contains(Application.ExecutablePath))
+                Registry.SetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum\\command", null, Application.ExecutablePath + " %1");
+            if (regIcon == null || regIcon != Application.ExecutablePath)
+                Registry.SetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum", "Icon", Application.ExecutablePath);
+
             InitializeComponent();
             cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" });
             cmbMethod.SelectedIndex = 0;
