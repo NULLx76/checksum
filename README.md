@@ -18,6 +18,7 @@ Here is a list of the currently supported hash types:
 * SHA512
 
 ## Recent changes ##
+* Added Context Menu (this requires admin privileges to edit the registry)
 * Added Drag&Drop Support
 * Fixed NullPointerException on close
 * Added threading for file processing to prevent application freezing
@@ -25,13 +26,11 @@ Here is a list of the currently supported hash types:
 * Automatic recalculation of hashes when switching methods
 
 ## Known Errors ##
-* Context menu not yet working(See To-Do list)
+* Drag&Drop not working when elevated
 
 ## To-Do List ##
-* Add Installer
-* Implement registery entries for context menu.
 
 ## Authors ##
 * [Victorheld](https://github.com/victorheld/)
-* [Backshifted](https://github.com/backshifted/)
+* [Backshifted](https://github.com/backshifted/) -Lead Programmer
 * Icons provided by [Pixel Mixer](http://pixel-mixer.com) and [Micheal Rowe](http://stylicons.com/) under the Creative Commons License
