@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
@@ -29,6 +30,8 @@ namespace checksum
 
         public frmMain()
         {
+            checkRegistry();
+
             InitializeComponent();
             cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" });
             cmbMethod.SelectedIndex = 0;
@@ -41,9 +44,9 @@ namespace checksum
             SetText2del = new delSetText2(SetText2);
 
             //Drag&Drop
-            this.AllowDrop = true;
-            this.DragEnter += new DragEventHandler(frmMain_DragEnter);
-            this.DragDrop += new DragEventHandler(frmMain_DragDrop);
+            //this.AllowDrop = true;
+            //this.DragEnter += new DragEventHandler(frmMain_DragEnter);
+            //this.DragDrop += new DragEventHandler(frmMain_DragDrop);
 
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length != 2)
@@ -66,6 +69,16 @@ namespace checksum
         }
 
         #region "Functions"
+
+        public void checkRegistry()
+        {
+            string regkey = (string)Registry.GetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum\\command", null, null);
+            string regIcon = (string)Registry.GetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum", "Icon", null);
+            if (regkey == null || !regkey.Contains(Application.ExecutablePath))
+                Registry.SetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum\\command", null, Application.ExecutablePath + " %1");
+            if (regIcon == null || regIcon != Application.ExecutablePath)
+                Registry.SetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum", "Icon", Application.ExecutablePath);
+        }
 
         public string CalculateMD5Hash(string file)
         {
@@ -278,26 +291,30 @@ namespace checksum
 
         private void tbChecksum1_TextChanged(object sender, EventArgs e)
         {
-            if (tbChecksum1.Text == tbChecksum2.Text) {
+            if (tbChecksum1.Text == tbChecksum2.Text)
+            {
                 if (tbChecksum1.Text != "")
                     pbCheck.Image = checksum.Properties.Resources.Check;
                 else
                     pbCheck.Image = null;
-            } else
+            }
+            else
                 pbCheck.Image = checksum.Properties.Resources.Error;
         }
 
         private void tbChecksum2_TextChanged(object sender, EventArgs e)
         {
-            if (tbChecksum1.Text == tbChecksum2.Text) {
+            if (tbChecksum1.Text == tbChecksum2.Text)
+            {
                 if (tbChecksum1.Text != "")
                     pbCheck.Image = checksum.Properties.Resources.Check;
                 else
                     pbCheck.Image = null;
-            } else
+            }
+            else
                 pbCheck.Image = checksum.Properties.Resources.Error;
         }
-    
+
         private void btnFile1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -346,20 +363,21 @@ namespace checksum
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(thd != null)
+            if (thd != null)
                 thd.Abort();
         }
 
-        private void frmMain_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
+        //private void frmMain_DragEnter(object sender, DragEventArgs e)
+        //{
+        //    if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        //}
 
-        private void frmMain_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            StartHashing(files[0], cmbMethod.SelectedItem.ToString(), 1);
-        }
+        //private void frmMain_DragDrop(object sender, DragEventArgs e)
+        //{
+        //    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+        //    lastFile1 = files[0];
+        //    StartHashing(files[0], cmbMethod.SelectedItem.ToString(), 1);
+        //}
 
         #endregion "Events"
     }
