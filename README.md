@@ -4,6 +4,7 @@ checksum
 A program to check the hash of a file nicely integrated in the context menu
 
 ## Releases ##
+* [Newest Update](https://github.com/victorheld/checksum/releases/tag/v.2.0.1)
 * [Update 1.6](https://github.com/victorheld/checksum/releases/tag/v1.6)
 * [Update 1.5.1](https://github.com/victorheld/checksum/releases/tag/v1.5.1)
 * [Update 1.5.0](https://github.com/victorheld/checksum/releases/tag/v1.5.0)
