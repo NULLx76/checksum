@@ -1,4 +1,4 @@
-checksum
+checksum [![Build Status](https://travis-ci.org/victorheld/checksum.svg?branch=master)](https://travis-ci.org/victorheld/checksum)
 ========
 
 A program to check the hash of a file nicely integrated in the context menu
