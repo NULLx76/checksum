@@ -33,9 +33,11 @@ namespace checksum
             checkRegistry();
 
             InitializeComponent();
+            this.MaximumSize = new System.Drawing.Size(int.MaxValue, 146);
+
             cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" });
             cmbMethod.SelectedIndex = 0;
-            LinkLabel.Link link = new LinkLabel.Link();
+            var link = new LinkLabel.Link();
             link.LinkData = "https://github.com/victorheld/checksum#checksum";
             alblGitHub.Links.Add(link);
 

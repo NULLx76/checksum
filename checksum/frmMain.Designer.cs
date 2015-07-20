@@ -81,6 +81,7 @@
             // 
             // tbChecksum1
             // 
+            this.tbChecksum1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tbChecksum1.Location = new System.Drawing.Point(87, 48);
             this.tbChecksum1.Name = "tbChecksum1";
             this.tbChecksum1.Size = new System.Drawing.Size(200, 20);
@@ -89,6 +90,7 @@
             // 
             // tbChecksum2
             // 
+            this.tbChecksum2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tbChecksum2.Location = new System.Drawing.Point(87, 74);
             this.tbChecksum2.Name = "tbChecksum2";
             this.tbChecksum2.Size = new System.Drawing.Size(200, 20);
@@ -97,6 +99,7 @@
             // 
             // pbCheck
             // 
+            this.pbCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pbCheck.Location = new System.Drawing.Point(292, 76);
             this.pbCheck.Name = "pbCheck";
             this.pbCheck.Size = new System.Drawing.Size(16, 16);
@@ -105,6 +108,7 @@
             // 
             // btnFile1
             // 
+            this.btnFile1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnFile1.Location = new System.Drawing.Point(314, 43);
             this.btnFile1.Name = "btnFile1";
             this.btnFile1.Size = new System.Drawing.Size(72, 23);
@@ -115,6 +119,7 @@
             // 
             // btnFile2
             // 
+            this.btnFile2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnFile2.Location = new System.Drawing.Point(314, 72);
             this.btnFile2.Name = "btnFile2";
             this.btnFile2.Size = new System.Drawing.Size(72, 23);
@@ -125,9 +130,11 @@
             // 
             // alblGitHub
             // 
+            this.alblGitHub.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.alblGitHub.AutoSize = true;
             this.alblGitHub.LinkColor = System.Drawing.Color.Blue;
             this.alblGitHub.Location = new System.Drawing.Point(311, 9);
+            this.alblGitHub.MinimumSize = new System.Drawing.Size(76, 13);
             this.alblGitHub.Name = "alblGitHub";
             this.alblGitHub.Size = new System.Drawing.Size(76, 13);
             this.alblGitHub.TabIndex = 10;
@@ -151,7 +158,7 @@
             this.Controls.Add(this.lblChecksum1);
             this.Controls.Add(this.lblMethod);
             this.Controls.Add(this.cmbMethod);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
