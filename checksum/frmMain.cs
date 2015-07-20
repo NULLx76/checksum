@@ -87,7 +87,6 @@ namespace checksum
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = md5.ComputeHash(stream);
-                stream.Close();
                 return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
@@ -99,7 +98,6 @@ namespace checksum
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha1.ComputeHash(stream);
-                stream.Close();
                 return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
@@ -111,7 +109,6 @@ namespace checksum
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha256.ComputeHash(stream);
-                stream.Close();
                 return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
@@ -123,7 +120,6 @@ namespace checksum
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha512.ComputeHash(stream);
-                stream.Close();
                 return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
