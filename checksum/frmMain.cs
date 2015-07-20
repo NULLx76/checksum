@@ -88,7 +88,7 @@ namespace checksum
             {
                 byte[] b = md5.ComputeHash(stream);
                 stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
+                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
 
@@ -100,7 +100,7 @@ namespace checksum
             {
                 byte[] b = sha1.ComputeHash(stream);
                 stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
+                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
 
@@ -112,7 +112,7 @@ namespace checksum
             {
                 byte[] b = sha256.ComputeHash(stream);
                 stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
+                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
 
@@ -124,7 +124,7 @@ namespace checksum
             {
                 byte[] b = sha512.ComputeHash(stream);
                 stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
+                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
             }
         }
 
