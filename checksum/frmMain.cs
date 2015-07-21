@@ -82,8 +82,7 @@ namespace checksum
 
         public string CalculateMD5Hash(string file)
         {
-            MD5 md5 = MD5.Create();
-
+            using (var md5 = MD5.Create())
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = md5.ComputeHash(stream);
@@ -93,8 +92,7 @@ namespace checksum
 
         public string CalculateSHA1Hash(string file)
         {
-            SHA1 sha1 = SHA1.Create();
-
+            using (var sha1 = SHA1.Create())
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha1.ComputeHash(stream);
@@ -104,8 +102,7 @@ namespace checksum
 
         public string CalculateSHA256Hash(string file)
         {
-            SHA256 sha256 = SHA256.Create();
-
+            using (var sha256 = SHA256.Create())
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha256.ComputeHash(stream);
@@ -115,8 +112,7 @@ namespace checksum
 
         public string CalculateSHA512Hash(string file)
         {
-            SHA512 sha512 = SHA512.Create();
-
+            using (var sha512 = SHA512.Create())
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha512.ComputeHash(stream);
