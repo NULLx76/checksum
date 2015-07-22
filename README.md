@@ -4,11 +4,8 @@ checksum [![Build Status](https://travis-ci.org/victorheld/checksum.svg?branch=m
 A program to check the hash of a file nicely integrated in the context menu
 
 ## Releases ##
-* [Newest Update](https://github.com/victorheld/checksum/releases/tag/v.2.0.1)
-* [Update 1.6](https://github.com/victorheld/checksum/releases/tag/v1.6)
-* [Update 1.5.1](https://github.com/victorheld/checksum/releases/tag/v1.5.1)
-* [Update 1.5.0](https://github.com/victorheld/checksum/releases/tag/v1.5.0)
-* [Update 1.0.0](https://github.com/victorheld/checksum/releases/tag/v1.0.0)
+* [Stable Release](https://github.com/victorheld/checksum/releases/latest)
+* [Beta Version](http://xirion.net/builds/checksum/bin/Debug/checksum.exe) (Build from latest commit)
 
 ## Supported Hashes ##
 Here is a list of the currently supported hash types:
