@@ -6,6 +6,14 @@ using System.Windows.Forms;
 
 namespace checksum
 {
+    public enum HashAlgorithms
+    {
+        SHA1,
+        SHA256,
+        SHA512,
+        MD5
+    }
+
     public partial class frmMain : Form
     {
         private int lastcmbIndex = 0;
@@ -33,11 +41,9 @@ namespace checksum
             checkRegistry();
 
             InitializeComponent();
-            this.MaximumSize = new System.Drawing.Size(int.MaxValue, 146);
-
-            cmbMethod.Items.AddRange(new string[] { "MD5", "SHA1", "SHA256", "SHA512" });
+            cmbMethod.Items.AddRange(new string[] { "SHA1", "SHA256", "SHA512", "MD5" });
             cmbMethod.SelectedIndex = 0;
-            var link = new LinkLabel.Link();
+            LinkLabel.Link link = new LinkLabel.Link();
             link.LinkData = "https://github.com/victorheld/checksum#checksum";
             alblGitHub.Links.Add(link);
 
@@ -58,7 +64,16 @@ namespace checksum
             if (System.IO.File.Exists(args[1]))
             {
                 //tbChecksum1.Text = CalculateHash(args[1], args[0]);
-                StartHashing(args[1], args[0], 1);
+                try
+                {
+                    int arg = int.Parse(args[0]);
+                    var method = (HashAlgorithms)arg;
+                    StartHashing(args[1], method, 1);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -84,45 +99,53 @@ namespace checksum
 
         public string CalculateMD5Hash(string file)
         {
-            using (var md5 = MD5.Create())
+            MD5 md5 = MD5.Create();
+
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = md5.ComputeHash(stream);
-                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
 
         public string CalculateSHA1Hash(string file)
         {
-            using (var sha1 = SHA1.Create())
+            SHA1 sha1 = SHA1.Create();
+
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha1.ComputeHash(stream);
-                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
 
         public string CalculateSHA256Hash(string file)
         {
-            using (var sha256 = SHA256.Create())
+            SHA256 sha256 = SHA256.Create();
+
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha256.ComputeHash(stream);
-                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
 
         public string CalculateSHA512Hash(string file)
         {
-            using (var sha512 = SHA512.Create())
+            SHA512 sha512 = SHA512.Create();
+
             using (var stream = System.IO.File.OpenRead(file))
             {
                 byte[] b = sha512.ComputeHash(stream);
-                return BitConverter.ToString(b).Replace("-", "").ToLowerInvariant();
+                stream.Close();
+                return BitConverter.ToString(b).Replace("-", "").ToLower();
             }
         }
 
-        public void StartHashing(string file, string method, int tb)
+        public void StartHashing(string file, HashAlgorithms method, int tb)
         {
             this.Text = "Checksum - Calculating Hash...";
             foreach (Control c in this.Controls)
@@ -135,27 +158,23 @@ namespace checksum
             thd.Start();
         }
 
-        public void CalculateHash(string file, string method, int tb)
+        public void CalculateHash(string file, HashAlgorithms method, int tb)
         {
             output = "";
             if (!System.IO.File.Exists(file))
                 return;
-
             switch (method)
             {
-                case "SHA1":
+                case HashAlgorithms.SHA1:
                     output = CalculateSHA1Hash(file);
                     break;
-
-                case "SHA256":
+                case HashAlgorithms.SHA256:
                     output = CalculateSHA256Hash(file);
                     break;
-
-                case "SHA512":
+                case HashAlgorithms.SHA512:
                     output = CalculateSHA512Hash(file);
                     break;
-
-                default:
+                case HashAlgorithms.MD5:
                     output = CalculateMD5Hash(file);
                     break;
             }
@@ -311,35 +330,38 @@ namespace checksum
 
         private void btnFile1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Select File";
-            ofd.Filter = "All Files|*.*";
-            ofd.CheckFileExists = true;
-            ofd.Multiselect = false;
-            ofd.InitialDirectory = lastFileLocation;
-            if (ofd.ShowDialog() == DialogResult.OK)
+            using (var ofd = new OpenFileDialog())
             {
-                lastFile1 = ofd.FileName;
-                //tbChecksum1.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
-                StartHashing(ofd.FileName, cmbMethod.SelectedItem.ToString(), 1);
+                ofd.Title = "Select File";
+                ofd.Filter = "All Files|*.*";
+                ofd.CheckFileExists = true;
+                ofd.Multiselect = false;
+                ofd.InitialDirectory = lastFileLocation;
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    lastFile1 = ofd.FileName;
+                    //tbChecksum1.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
+                    StartHashing(ofd.FileName, (HashAlgorithms)cmbMethod.SelectedIndex, 1);
+                }
             }
         }
 
         private void btnFile2_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Select File";
-            ofd.Filter = "All Files|*.*";
-            ofd.CheckFileExists = true;
-            ofd.Multiselect = false;
-            ofd.InitialDirectory = lastFileLocation;
-            if (ofd.ShowDialog() == DialogResult.OK)
+            using (var ofd = new OpenFileDialog())
             {
-                lastFile2 = ofd.FileName;
-                //tbChecksum2.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
-                StartHashing(ofd.FileName, cmbMethod.SelectedItem.ToString(), 2);
+                ofd.Title = "Select File";
+                ofd.Filter = "All Files|*.*";
+                ofd.CheckFileExists = true;
+                ofd.Multiselect = false;
+                ofd.InitialDirectory = lastFileLocation;
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    lastFile2 = ofd.FileName;
+                    //tbChecksum2.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
+                    StartHashing(ofd.FileName, (HashAlgorithms)cmbMethod.SelectedIndex, 2);
+                }
             }
-            ofd.Dispose();
         }
 
         private void cmbMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -347,9 +369,9 @@ namespace checksum
             if (cmbMethod.SelectedIndex != lastcmbIndex)
             {
                 if (lastFile1 != "")
-                    StartHashing(lastFile1, cmbMethod.SelectedItem.ToString(), 1);
+                    StartHashing(lastFile1, (HashAlgorithms)cmbMethod.SelectedIndex, 1);
                 if (lastFile2 != "")
-                    StartHashing(lastFile2, cmbMethod.SelectedItem.ToString(), 2);
+                    StartHashing(lastFile2, (HashAlgorithms)cmbMethod.SelectedIndex, 2);
 
                 lastcmbIndex = cmbMethod.SelectedIndex;
             }
