@@ -5,7 +5,6 @@ A program to check the hash of a file nicely integrated in the context menu
 
 ## Releases ##
 * [Stable Release](https://github.com/victorheld/checksum/releases/latest)
-* [Beta Version](http://xirion.net/builds/checksum/bin/Debug/checksum.exe) (Build from latest commit)
 
 ## Supported Hashes ##
 Here is a list of the currently supported hash types:
@@ -28,7 +27,5 @@ Here is a list of the currently supported hash types:
 
 ## To-Do List ##
 
-## Authors ##
-* [Victorheld](https://github.com/victorheld/)
-* [Backshifted](https://github.com/backshifted/) -Lead Programmer
+## Resources ##
 * Icons provided by [Pixel Mixer](http://pixel-mixer.com) and [Micheal Rowe](http://stylicons.com/) under the Creative Commons License
