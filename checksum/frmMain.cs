@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
@@ -24,16 +25,14 @@ namespace checksum
 
         private Thread thd;
 
+        // Delegates Type
         private delegate void delEnableForm();
-
-        private delEnableForm EnableFormdel;
-
         private delegate void delSetText1();
-
-        private delSetText1 SetText1del;
-
         private delegate void delSetText2();
 
+        // Delegates object
+        private delEnableForm EnableFormdel;
+        private delSetText1 SetText1del;
         private delSetText2 SetText2del;
 
         public frmMain()
@@ -99,9 +98,8 @@ namespace checksum
 
         public string CalculateMD5Hash(string file)
         {
-            MD5 md5 = MD5.Create();
-
-            using (var stream = System.IO.File.OpenRead(file))
+            using (var md5 = MD5.Create())
+            using (var stream = File.OpenRead(file))
             {
                 byte[] b = md5.ComputeHash(stream);
                 stream.Close();
@@ -113,7 +111,7 @@ namespace checksum
         {
             SHA1 sha1 = SHA1.Create();
 
-            using (var stream = System.IO.File.OpenRead(file))
+            using (var stream = File.OpenRead(file))
             {
                 byte[] b = sha1.ComputeHash(stream);
                 stream.Close();
@@ -123,9 +121,8 @@ namespace checksum
 
         public string CalculateSHA256Hash(string file)
         {
-            SHA256 sha256 = SHA256.Create();
-
-            using (var stream = System.IO.File.OpenRead(file))
+            using (var sha256 = SHA256.Create())
+            using (var stream = File.OpenRead(file))
             {
                 byte[] b = sha256.ComputeHash(stream);
                 stream.Close();
@@ -135,9 +132,8 @@ namespace checksum
 
         public string CalculateSHA512Hash(string file)
         {
-            SHA512 sha512 = SHA512.Create();
-
-            using (var stream = System.IO.File.OpenRead(file))
+            using (var sha512 = SHA512.Create())
+            using (var stream = File.OpenRead(file))
             {
                 byte[] b = sha512.ComputeHash(stream);
                 stream.Close();
@@ -147,8 +143,8 @@ namespace checksum
 
         public void StartHashing(string file, HashAlgorithms method, int tb)
         {
-            this.Text = "Checksum - Calculating Hash...";
-            foreach (Control c in this.Controls)
+            Text = "Checksum - Calculating Hash...";
+            foreach (Control c in Controls)
             {
                 if (c.GetType() != typeof(LinkLabel))
                     c.Enabled = false;
@@ -183,7 +179,7 @@ namespace checksum
                 SetText1();
             else
                 SetText2();
-            lastFileLocation = System.IO.Path.GetFullPath(file);
+            lastFileLocation = Path.GetFullPath(file);
         }
 
         public void EnableForm()
@@ -196,10 +192,10 @@ namespace checksum
                     c.Enabled = true;
             }
 
-            if (this.InvokeRequired)
-                this.Invoke(EnableFormdel);
+            if (InvokeRequired)
+                Invoke(EnableFormdel);
             else
-                this.Text = "Checksum";
+                Text = "Checksum";
         }
 
         public void SetText1()
@@ -298,7 +294,7 @@ namespace checksum
 
         private void alblGitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.ProcessStartInfo sInfo = new System.Diagnostics.ProcessStartInfo(e.Link.LinkData as string);
+            var sInfo = new System.Diagnostics.ProcessStartInfo(e.Link.LinkData as string);
             System.Diagnostics.Process.Start(sInfo);
         }
 
@@ -307,12 +303,12 @@ namespace checksum
             if (tbChecksum1.Text == tbChecksum2.Text)
             {
                 if (tbChecksum1.Text != "")
-                    pbCheck.Image = checksum.Properties.Resources.Check;
+                    pbCheck.Image = Properties.Resources.Check;
                 else
                     pbCheck.Image = null;
             }
             else
-                pbCheck.Image = checksum.Properties.Resources.Error;
+                pbCheck.Image = Properties.Resources.Error;
         }
 
         private void tbChecksum2_TextChanged(object sender, EventArgs e)
@@ -320,12 +316,12 @@ namespace checksum
             if (tbChecksum1.Text == tbChecksum2.Text)
             {
                 if (tbChecksum1.Text != "")
-                    pbCheck.Image = checksum.Properties.Resources.Check;
+                    pbCheck.Image = Properties.Resources.Check;
                 else
                     pbCheck.Image = null;
             }
             else
-                pbCheck.Image = checksum.Properties.Resources.Error;
+                pbCheck.Image = Properties.Resources.Error;
         }
 
         private void btnFile1_Click(object sender, EventArgs e)
