@@ -1,4 +1,4 @@
-checksum [![Build Status](https://travis-ci.org/victorheld/checksum.svg?branch=master)](https://travis-ci.org/victorheld/checksum) [![Build Status](http://80.60.83.220:8080/buildStatus/icon?job=MyGame)](http://80.60.83.220:8080/job/MyGame/)
+checksum [![Build Status](https://travis-ci.org/victorheld/checksum.svg?branch=master)](https://travis-ci.org/victorheld/checksum) [![Build Status](http://80.60.83.220:8080/buildStatus/icon?job=checksum)](http://80.60.83.220:8080/job/checksum/)
 ========
 
 A program to check the hash of a file nicely integrated in the context menu
