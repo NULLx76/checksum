@@ -18,7 +18,6 @@ namespace checksum
     public partial class frmMain : Form
     {
         private int lastcmbIndex = 0;
-        private string lastFileLocation = "C:\\";
         private string lastFile1 = "";
         private string lastFile2 = "";
         private string output = "";
@@ -34,6 +33,9 @@ namespace checksum
         private delEnableForm EnableFormdel;
         private delSetText1 SetText1del;
         private delSetText2 SetText2del;
+
+        private readonly OpenFileDialog _openFileDialogue = new OpenFileDialog()
+        { Title = "Select File", Filter = "All files|*.*", CheckFileExists = true, Multiselect = false };
 
         public frmMain()
         {
@@ -179,7 +181,6 @@ namespace checksum
                 SetText1();
             else
                 SetText2();
-            lastFileLocation = Path.GetFullPath(file);
         }
 
         private static bool _childControlsEnabled = false;
@@ -344,37 +345,21 @@ namespace checksum
 
         private void btnFile1_Click(object sender, EventArgs e)
         {
-            using (var ofd = new OpenFileDialog())
+            if (_openFileDialogue.ShowDialog() == DialogResult.OK)
             {
-                ofd.Title = "Select File";
-                ofd.Filter = "All Files|*.*";
-                ofd.CheckFileExists = true;
-                ofd.Multiselect = false;
-                ofd.InitialDirectory = lastFileLocation;
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    lastFile1 = ofd.FileName;
-                    //tbChecksum1.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
-                    StartHashing(ofd.FileName, (HashAlgorithms)cmbMethod.SelectedIndex, 1);
-                }
+                lastFile1 = _openFileDialogue.FileName;
+                //tbChecksum1.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
+                StartHashing(_openFileDialogue.FileName, (HashAlgorithms)cmbMethod.SelectedIndex, 1);
             }
         }
 
         private void btnFile2_Click(object sender, EventArgs e)
         {
-            using (var ofd = new OpenFileDialog())
+            if (_openFileDialogue.ShowDialog() == DialogResult.OK)
             {
-                ofd.Title = "Select File";
-                ofd.Filter = "All Files|*.*";
-                ofd.CheckFileExists = true;
-                ofd.Multiselect = false;
-                ofd.InitialDirectory = lastFileLocation;
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    lastFile2 = ofd.FileName;
-                    //tbChecksum2.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
-                    StartHashing(ofd.FileName, (HashAlgorithms)cmbMethod.SelectedIndex, 2);
-                }
+                lastFile2 = _openFileDialogue.FileName;
+                //tbChecksum2.Text = CalculateHash(ofd.FileName, cmbMethod.SelectedItem.ToString());
+                StartHashing(_openFileDialogue.FileName, (HashAlgorithms)cmbMethod.SelectedIndex, 2);
             }
         }
 
