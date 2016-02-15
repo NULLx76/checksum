@@ -182,20 +182,38 @@ namespace checksum
             lastFileLocation = Path.GetFullPath(file);
         }
 
+        private static bool _childControlsEnabled = false;
         public void EnableForm()
         {
-            foreach (Control c in this.Controls)
+            if (!_childControlsEnabled)
             {
-                if (c.InvokeRequired)
-                    c.Invoke(EnableFormdel);
-                else
-                    c.Enabled = true;
+                foreach (Control c in this.Controls)
+                {
+                    if (c.InvokeRequired)
+                    {
+                        c.Invoke(EnableFormdel);
+                        return; // prevent Main-Thread to Title more than once
+                    }
+                    else
+                    {
+                        c.Enabled = true;
+                    }
+                }
             }
 
+            // set state to enable to indicate the main thread that child-controls are already enable
+            _childControlsEnabled = true;
+
             if (InvokeRequired)
+            {
                 Invoke(EnableFormdel);
+            }
             else
+            {
                 Text = "Checksum";
+                // reset state
+                _childControlsEnabled = false;
+            }
         }
 
         public void SetText1()
