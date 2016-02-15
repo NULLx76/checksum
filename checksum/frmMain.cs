@@ -111,8 +111,7 @@ namespace checksum
 
         public string CalculateSHA1Hash(string file)
         {
-            SHA1 sha1 = SHA1.Create();
-
+            using (SHA1 sha1 = SHA1.Create())
             using (var stream = File.OpenRead(file))
             {
                 byte[] b = sha1.ComputeHash(stream);
@@ -158,9 +157,9 @@ namespace checksum
 
         public void CalculateHash(string file, HashAlgorithms method, int tb)
         {
-            output = "";
-            if (!System.IO.File.Exists(file))
+            if (!File.Exists(file))
                 return;
+            output = string.Empty;
             switch (method)
             {
                 case HashAlgorithms.SHA1:
@@ -367,9 +366,9 @@ namespace checksum
         {
             if (cmbMethod.SelectedIndex != lastcmbIndex)
             {
-                if (lastFile1 != "")
+                if (lastFile1 != string.Empty)
                     StartHashing(lastFile1, (HashAlgorithms)cmbMethod.SelectedIndex, 1);
-                if (lastFile2 != "")
+                if (lastFile2 != string.Empty)
                     StartHashing(lastFile2, (HashAlgorithms)cmbMethod.SelectedIndex, 2);
 
                 lastcmbIndex = cmbMethod.SelectedIndex;
