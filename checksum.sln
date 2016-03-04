@@ -1,10 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-# File created on 9/3/2014
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "checksum", "checksum\checksum.csproj", "{871A3953-4AE4-4D66-A770-7639DE98482C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Checksum", "checksum\Checksum.csproj", "{871A3953-4AE4-4D66-A770-7639DE98482C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChecksumTests", "ChecksumTests\ChecksumTests.csproj", "{E5FF384D-13EA-490D-B700-620E2E54C0D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,6 +17,10 @@ Global
 		{871A3953-4AE4-4D66-A770-7639DE98482C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871A3953-4AE4-4D66-A770-7639DE98482C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{871A3953-4AE4-4D66-A770-7639DE98482C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5FF384D-13EA-490D-B700-620E2E54C0D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5FF384D-13EA-490D-B700-620E2E54C0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5FF384D-13EA-490D-B700-620E2E54C0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5FF384D-13EA-490D-B700-620E2E54C0D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
