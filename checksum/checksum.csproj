@@ -7,7 +7,7 @@
     <ProjectGuid>{871A3953-4AE4-4D66-A770-7639DE98482C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>checksum</RootNamespace>
+    <RootNamespace>Checksum</RootNamespace>
     <AssemblyName>checksum</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -32,10 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>checksum.Program</StartupObject>
+    <StartupObject>Checksum.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Hashtag.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Hashtag.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -59,8 +59,10 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="HashAlgorithms.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -97,7 +99,7 @@
     <None Include="Resources\Error.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Hashtag.ico" />
+    <Content Include="Resources\Hashtag.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
