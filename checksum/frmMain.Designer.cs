@@ -1,4 +1,4 @@
-﻿namespace checksum
+﻿namespace Checksum
 {
     partial class frmMain
     {

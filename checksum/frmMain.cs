@@ -4,17 +4,10 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
+using Checksum.Enums;
 
-namespace checksum
+namespace Checksum
 {
-    public enum HashAlgorithms
-    {
-        SHA1,
-        SHA256,
-        SHA512,
-        MD5
-    }
-
     public partial class frmMain : Form
     {
         private int lastcmbIndex = 0;
@@ -24,22 +17,18 @@ namespace checksum
 
         private Thread thd;
 
-        // Delegates Type
-        private delegate void delEnableForm();
-        private delegate void delSetText1();
-        private delegate void delSetText2();
-
         // Delegates object
-        private delEnableForm EnableFormdel;
-        private delSetText1 SetText1del;
-        private delSetText2 SetText2del;
+        private MethodInvoker EnableFormdel;
+        private MethodInvoker SetText1del;
+        private MethodInvoker SetText2del;
 
         private readonly OpenFileDialog _openFileDialogue = new OpenFileDialog()
-        { Title = "Select File", Filter = "All files|*.*", CheckFileExists = true, Multiselect = false };
+        { Title = "Select file", Filter = "All files|*.*", CheckFileExists = true, Multiselect = false };
 
         public frmMain()
         {
-            checkRegistry();
+            // TODO: this shouldn't be madatory.
+            RegistryUtils.AddToContextMenu();
 
             InitializeComponent();
             cmbMethod.Items.AddRange(new string[] { "SHA1", "SHA256", "SHA512", "MD5" });
@@ -48,9 +37,9 @@ namespace checksum
             link.LinkData = "https://github.com/victorheld/checksum#checksum";
             alblGitHub.Links.Add(link);
 
-            EnableFormdel = new delEnableForm(EnableForm);
-            SetText1del = new delSetText1(SetText1);
-            SetText2del = new delSetText2(SetText2);
+            EnableFormdel = EnableForm;
+            SetText1del = SetText1;
+            SetText2del = SetText2;
 
             //Drag&Drop
             //this.AllowDrop = true;
@@ -62,7 +51,7 @@ namespace checksum
                 return;
             if (cmbMethod.Items.Contains(args[0].ToUpper()))
                 cmbMethod.SelectedIndex = cmbMethod.Items.IndexOf(args[0]);
-            if (System.IO.File.Exists(args[1]))
+            if (File.Exists(args[1]))
             {
                 //tbChecksum1.Text = CalculateHash(args[1], args[0]);
                 try
@@ -88,68 +77,10 @@ namespace checksum
 
         #region "Functions"
 
-        public void checkRegistry()
-        {
-            string regkey = (string)Registry.GetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum\\command", null, null);
-            string regIcon = (string)Registry.GetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum", "Icon", null);
-            if (regkey == null || !regkey.Contains(Application.ExecutablePath))
-                Registry.SetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum\\command", null, Application.ExecutablePath + " %1");
-            if (regIcon == null || regIcon != Application.ExecutablePath)
-                Registry.SetValue("HKEY_CLASSES_ROOT\\*\\shell\\Checksum", "Icon", Application.ExecutablePath);
-        }
-
-        public string CalculateMD5Hash(string file)
-        {
-            using (var md5 = MD5.Create())
-            using (var stream = File.OpenRead(file))
-            {
-                byte[] b = md5.ComputeHash(stream);
-                stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
-            }
-        }
-
-        public string CalculateSHA1Hash(string file)
-        {
-            using (SHA1 sha1 = SHA1.Create())
-            using (var stream = File.OpenRead(file))
-            {
-                byte[] b = sha1.ComputeHash(stream);
-                stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
-            }
-        }
-
-        public string CalculateSHA256Hash(string file)
-        {
-            using (var sha256 = SHA256.Create())
-            using (var stream = File.OpenRead(file))
-            {
-                byte[] b = sha256.ComputeHash(stream);
-                stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
-            }
-        }
-
-        public string CalculateSHA512Hash(string file)
-        {
-            using (var sha512 = SHA512.Create())
-            using (var stream = File.OpenRead(file))
-            {
-                byte[] b = sha512.ComputeHash(stream);
-                stream.Close();
-                return BitConverter.ToString(b).Replace("-", "").ToLower();
-            }
-        }
-
         public void StartHashing(string file, HashAlgorithms method, int tb)
         {
             Text = "Checksum - Calculating Hash...";
-            foreach (Control c in Controls)
-            {
-                if (c.GetType() != typeof(LinkLabel))
-                    c.Enabled = false;
-            }
+            DisableAllControls();
 
             thd = new Thread(() => CalculateHash(file, method, tb));
             thd.Start();
@@ -163,16 +94,16 @@ namespace checksum
             switch (method)
             {
                 case HashAlgorithms.SHA1:
-                    output = CalculateSHA1Hash(file);
+                    output = HashUtils.CalculateSHA1Hash(file);
                     break;
                 case HashAlgorithms.SHA256:
-                    output = CalculateSHA256Hash(file);
+                    output = HashUtils.CalculateSHA256Hash(file);
                     break;
                 case HashAlgorithms.SHA512:
-                    output = CalculateSHA512Hash(file);
+                    output = HashUtils.CalculateSHA512Hash(file);
                     break;
                 case HashAlgorithms.MD5:
-                    output = CalculateMD5Hash(file);
+                    output = HashUtils.CalculateMD5Hash(file);
                     break;
             }
             EnableForm();
@@ -187,7 +118,7 @@ namespace checksum
         {
             if (!_childControlsEnabled)
             {
-                foreach (Control c in this.Controls)
+                foreach (Control c in Controls)
                 {
                     if (c.InvokeRequired)
                     {
@@ -213,6 +144,15 @@ namespace checksum
                 Text = "Checksum";
                 // reset state
                 _childControlsEnabled = false;
+            }
+        }
+
+        private void DisableAllControls()
+        {
+            foreach (Control c in Controls)
+            {
+                if (c.GetType() != typeof(LinkLabel))
+                    c.Enabled = false;
             }
         }
 
