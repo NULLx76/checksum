@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace checksum
+namespace Checksum
 {
     internal static class Program
     {
